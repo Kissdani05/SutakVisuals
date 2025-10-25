@@ -55,3 +55,12 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Image optimization
+
+- Helyezd az eredeti képeket a `public/images/` mappába.
+- Futtasd az optimalizálót a gyorsan töltődő verziók előállításához (WebP + thumbnail):
+
+	- npm run optimize:images
+
+- A galériában a képeket így hivatkozd: `/images/<név>.webp`. A rács automatikusan a generált `/images/<név>.thumb.webp`-et használja az előnézethez.

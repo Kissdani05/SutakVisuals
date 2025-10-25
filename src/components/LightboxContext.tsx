@@ -2,7 +2,10 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 export type GalleryItem = {
+  /** Full-size image used in Lightbox */
   image: string;
+  /** Optional thumbnail for grids/cards */
+  thumb?: string;
   title: string;
   desc: string;
   tag: string;
