@@ -4,9 +4,8 @@
   .cursor, .cursorFollower { display: none; }
 }
 
-:global(body) {
-  cursor: none;
-}
+/* Removed custom cursor hiding to show native cursor */
+/* :global(body) { cursor: none; } */
 
 .cursor {
   width: 20px;
