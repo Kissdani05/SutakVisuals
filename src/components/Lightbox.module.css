@@ -1,0 +1,94 @@
+@import "../styles/variables.css";
+
+.overlay {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+.close {
+  position: fixed;
+  top: 20px;
+  right: 40px;
+  font-size: 50px;
+  color: white;
+  cursor: pointer;
+  z-index: 100000;
+  transition: all 0.3s ease;
+  background: transparent;
+  border: none;
+}
+.close:hover { transform: scale(1.2) rotate(90deg); }
+
+.help {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 15px 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.counter {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 16px;
+  z-index: 100000;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.image {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.caption {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  backdrop-filter: blur(10px);
+}
+
+.prev,
+.next {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  padding: 20px 30px;
+  cursor: pointer;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.prev { left: 20px; }
+.next { right: 20px; }
+.prev:hover,
+.next:hover { background: rgba(0, 255, 136, 0.3); }
