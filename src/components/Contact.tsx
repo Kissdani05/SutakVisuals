@@ -63,7 +63,7 @@ const Contact: React.FC = () => {
               <div className={styles.itemIcon}>📱</div>
               <div className={styles.itemText}>
                 <h4>Telefon</h4>
-                <p>+36 30 295 853</p>
+                <p>+36 30 295 8530</p>
               </div>
             </div>
           </div>
@@ -76,6 +76,10 @@ const Contact: React.FC = () => {
           <div className={styles.group}>
             <label htmlFor="email">Email</label>
             <input id="email" name="email" type="email" required />
+          </div>
+          <div className={styles.group}>
+            <label htmlFor="instagram">Instagram neved (Itt veszem fel a kapcsolatot veled)</label>
+            <input id="instagram" name="instagram" type="text" placeholder="pl. @sutakvisuals" />
           </div>
           <div className={styles.group}>
             <label htmlFor="subject">Autó márka / Pontos típus</label>

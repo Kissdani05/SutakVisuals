@@ -3,6 +3,7 @@ import nodemailer from "nodemailer";
 type Payload = {
   name?: string;
   email?: string;
+  instagram?: string;
   subject?: string;
   message?: string;
   _hp?: string; // honeypot
@@ -10,8 +11,8 @@ type Payload = {
 
 export async function POST(req: Request) {
   try {
-    const data = (await req.json()) as Payload;
-    const { name, email, subject, message, _hp } = data || {};
+  const data = (await req.json()) as Payload;
+  const { name, email, instagram, subject, message, _hp } = data || {};
 
     // Simple honeypot
     if (_hp) {
@@ -52,6 +53,7 @@ export async function POST(req: Request) {
       <h2>Új üzenet érkezett a weboldalról</h2>
       <p><strong>Név:</strong> ${escapeHtml(name)}</p>
       <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      ${instagram ? `<p><strong>Instagram:</strong> ${escapeHtml(instagram)}</p>` : ""}
       <p><strong>Autó márka / típus:</strong> ${escapeHtml(subject)}</p>
       <p><strong>Üzenet:</strong><br/>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
     `;
@@ -61,7 +63,7 @@ export async function POST(req: Request) {
       to: MAIL_TO,
       replyTo: email,
       subject: `Üzenet a weboldalról: ${subject}`,
-      text: `Név: ${name}\nEmail: ${email}\nAutó márka / típus: ${subject}\n\nÜzenet:\n${message}`,
+      text: `Név: ${name}\nEmail: ${email}${instagram ? `\nInstagram: ${instagram}` : ""}\nAutó márka / típus: ${subject}\n\nÜzenet:\n${message}`,
       html,
     });
 
