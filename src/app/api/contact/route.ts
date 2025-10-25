@@ -29,16 +29,24 @@ export async function POST(req: Request) {
     const MAIL_TO = process.env.MAIL_TO || SMTP_USER;
     const MAIL_FROM = process.env.MAIL_FROM || SMTP_USER || "no-reply@sutakvisuals.local";
 
-    if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-      return new Response(JSON.stringify({ error: "Email küldés nincs konfigurálva (SMTP env hiányzik)." }), { status: 500 });
+    const missingSmtp = !SMTP_HOST || !SMTP_USER || !SMTP_PASS;
+    const isDev = process.env.NODE_ENV !== "production";
+
+    if (missingSmtp && !isDev) {
+      return new Response(
+        JSON.stringify({ error: "Email küldés nincs konfigurálva a szerveren (SMTP env hiányzik)." }),
+        { status: 500 }
+      );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: SMTP_HOST,
-      port: SMTP_PORT,
-      secure: SMTP_PORT === 465, // true for 465, false for other ports
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
-    });
+    const transporter = missingSmtp && isDev
+      ? nodemailer.createTransport({ jsonTransport: true }) // dev fallback: does not send, but succeeds
+      : nodemailer.createTransport({
+          host: SMTP_HOST as string,
+          port: SMTP_PORT,
+          secure: SMTP_PORT === 465, // true for 465, false for other ports
+          auth: { user: SMTP_USER as string, pass: SMTP_PASS as string },
+        });
 
     const html = `
       <h2>Új üzenet érkezett a weboldalról</h2>
@@ -48,7 +56,7 @@ export async function POST(req: Request) {
       <p><strong>Üzenet:</strong><br/>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
     `;
 
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: MAIL_FROM,
       to: MAIL_TO,
       replyTo: email,
@@ -57,10 +65,19 @@ export async function POST(req: Request) {
       html,
     });
 
+    // In dev fallback, include a hint that no real email was sent
+    if (missingSmtp && isDev) {
+      return new Response(
+        JSON.stringify({ ok: true, dev: true, note: "Fejlesztői mód: SMTP nincs konfigurálva, e-mail NEM lett elküldve.", messageId: (info as any)?.messageId }),
+        { status: 200 }
+      );
+    }
+
     return new Response(JSON.stringify({ ok: true }), { status: 200 });
   } catch (err) {
     console.error("/api/contact error", err);
-    return new Response(JSON.stringify({ error: "Nem sikerült elküldeni az üzenetet." }), { status: 500 });
+    const msg = err instanceof Error ? err.message : "Ismeretlen hiba";
+    return new Response(JSON.stringify({ error: `Nem sikerült elküldeni az üzenetet: ${msg}` }), { status: 500 });
   }
 }
 
