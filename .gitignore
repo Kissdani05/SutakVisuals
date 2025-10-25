@@ -1,4 +1,28 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Dependencies
+node_modules/
+.next/
+
+# Env
+.env*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+
+# Do not commit original large source images; use generated webp instead
+/public/images/*.png
+/public/images/*.jpg
+/public/images/*.jpeg
+
+# Allow optimized outputs
+!public/images/*.webp# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
