@@ -17,7 +17,7 @@
 .itemOverlay { position: absolute; bottom:0; left:0; right:0; padding:3rem; background: linear-gradient(to top, rgba(0,0,0,.95) 0%, transparent 100%); z-index:2; opacity:0; transform: translateY(20px); transition: all .5s cubic-bezier(.4,0,.2,1); }
 .itemOverlay h3 { font-size: 2rem; font-weight: 800; margin-bottom: .5rem; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
 .itemOverlay p { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1rem; }
-.tag { display:inline-block; padding:.4rem 1rem; background: rgba(0,255,136,.1); border:1px solid var(--accent-primary); border-radius: 20px; font-size:.8rem; color: var(--accent-primary); font-weight:600; letter-spacing:.05em; }
+.tag { display:inline-block; padding:.4rem 1rem; background: rgba(0,255,136,.1); border:1px solid var(--accent-primary); border-radius: 20px; font-size:.8rem; color: var(--accent-primary); font-weight:600; letter-spacing:.05em; text-decoration: none; }
 
 /* reveal */
 .reveal { opacity: 0; transform: translateY(50px); transition: all .8s cubic-bezier(.4,0,.2,1); }

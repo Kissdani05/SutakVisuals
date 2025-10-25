@@ -51,7 +51,15 @@ const GalleryGrid: React.FC = () => {
           <div className={styles.itemOverlay}>
             <h3>{it.title}</h3>
             <p>{it.desc}</p>
-            <span className={styles.tag}>{it.tag}</span>
+            <a
+              className={styles.tag}
+              href={`https://instagram.com/${(it.tag || "").replace(/^@/, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {it.tag}
+            </a>
           </div>
         </div>
       ))}

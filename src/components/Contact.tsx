@@ -71,11 +71,11 @@ const Contact: React.FC = () => {
         <form className={styles.form} onSubmit={onSubmit}>
           <div className={styles.group}>
             <label htmlFor="name">Név</label>
-            <input id="name" name="name" type="text" required />
+            <input id="name" name="name" type="text" required placeholder="pl. Teljes neved" />
           </div>
           <div className={styles.group}>
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" required />
+            <input id="email" name="email" type="email" required placeholder="pl. te@pelda.hu" />
           </div>
           <div className={styles.group}>
             <label htmlFor="instagram">Instagram neved (Itt veszem fel a kapcsolatot veled)</label>
@@ -83,11 +83,11 @@ const Contact: React.FC = () => {
           </div>
           <div className={styles.group}>
             <label htmlFor="subject">Autó márka / Pontos típus</label>
-            <input id="subject" name="subject" type="text" required />
+            <input id="subject" name="subject" type="text" required placeholder="pl. BMW E36 328i Coupe" />
           </div>
           <div className={styles.group}>
             <label htmlFor="message">Hagyj üzenetet! Speciális kérések, stb...</label>
-            <textarea id="message" name="message" required />
+            <textarea id="message" name="message" required placeholder="pl. Mikor és hol szeretnél fotózást? Vannak-e speciális kéréseid?" />
           </div>
           {/* honeypot */}
           <input type="text" name="_hp" className={styles.hp} tabIndex={-1} autoComplete="off" />
