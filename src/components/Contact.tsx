@@ -5,6 +5,8 @@ import styles from "./Contact.module.css";
 const Contact: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showMsg, setShowMsg] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const el = sectionRef.current; if (!el) return;
@@ -15,11 +17,32 @@ const Contact: React.FC = () => {
     return ()=> obs.disconnect();
   }, []);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setShowMsg(true);
-    setTimeout(() => setShowMsg(false), 3500);
-    (e.currentTarget as HTMLFormElement).reset();
+    setError(null);
+    setSending(true);
+    try {
+      const form = e.currentTarget as HTMLFormElement;
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData.entries());
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Hiba történt");
+
+      setShowMsg(true);
+      form.reset();
+      setTimeout(() => setShowMsg(false), 3500);
+    } catch (err: any) {
+      setError(err?.message || "Nem sikerült elküldeni az üzenetet.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -62,15 +85,18 @@ const Contact: React.FC = () => {
             <label htmlFor="message">Hagyj üzenetet! Speciális kérések, stb...</label>
             <textarea id="message" name="message" required />
           </div>
-          <button type="submit" className={styles.cta}>Elküldöm!</button>
+          {/* honeypot */}
+          <input type="text" name="_hp" className={styles.hp} tabIndex={-1} autoComplete="off" />
+          <button type="submit" className={styles.cta} disabled={sending}>
+            {sending ? "Küldés..." : "Elküldöm!"}
+          </button>
         </form>
       </div>
 
       {showMsg && (
-        <div className={styles.toast}>
-          ✓ Message sent successfully! We'll be in touch soon.
-        </div>
+        <div className={styles.toast}>✓ Üzenetedet megkaptuk, hamarosan jelentkezünk.</div>
       )}
+      {error && <div className={styles.error}>{error}</div>}
     </section>
   );
 };
