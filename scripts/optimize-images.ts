@@ -2,11 +2,14 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
-// Config
+// Config (can be overridden with env vars)
 const SRC_DIR = path.resolve(process.cwd(), "public/images");
 const OUT_DIR = SRC_DIR; // write optimized variants next to sources
-const THUMB_WIDTH = 600;
-const LARGE_WIDTH = 1600;
+const THUMB_WIDTH = Number(process.env.THUMB_WIDTH || 900);
+const THUMB_QUALITY = Number(process.env.THUMB_QUALITY || 90);
+const THUMB_NEAR_LOSSLESS = process.env.THUMB_NEAR_LOSSLESS !== "0"; // default true
+const LARGE_WIDTH = Number(process.env.LARGE_WIDTH || 1600);
+const LARGE_QUALITY = Number(process.env.LARGE_QUALITY || 86);
 
 async function ensureDir(p: string) {
   await fs.promises.mkdir(p, { recursive: true });
@@ -14,7 +17,8 @@ async function ensureDir(p: string) {
 
 async function processImage(filePath: string) {
   const ext = path.extname(filePath).toLowerCase();
-  if (![".jpg", ".jpeg", ".png", ".webp"].includes(ext)) return;
+  // Only process original source formats to avoid reading/writing same files
+  if (![".jpg", ".jpeg", ".png"].includes(ext)) return;
 
   const base = path.basename(filePath, ext);
   const dir = path.dirname(filePath);
@@ -22,18 +26,18 @@ async function processImage(filePath: string) {
   const input = sharp(filePath);
   const meta = await input.metadata();
 
-  // Thumbnail WEBP
+  // Thumbnail WEBP (high quality, near-lossless for crisp previews)
   const thumbOut = path.join(dir, `${base}.thumb.webp`);
   await input
     .resize({ width: THUMB_WIDTH, withoutEnlargement: true })
-    .webp({ quality: 72 })
+    .webp({ quality: THUMB_QUALITY, nearLossless: THUMB_NEAR_LOSSLESS })
     .toFile(thumbOut);
 
   // Large WEBP for lightbox
   const largeOut = path.join(dir, `${base}.webp`);
   await sharp(filePath)
     .resize({ width: LARGE_WIDTH, withoutEnlargement: true })
-    .webp({ quality: 82 })
+    .webp({ quality: LARGE_QUALITY })
     .toFile(largeOut);
 
   // Optional: keep original untouched.
