@@ -17,7 +17,16 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className={styles.hero}>
-      <div className={styles.heroBg} ref={bgRef} />
+      <div
+        className={styles.heroBg}
+        ref={bgRef}
+        style={{
+          backgroundImage: 'url("/images/PATRIX61 Image 6037.webp")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
       <div className={styles.gridOverlay} />
       <div className={styles.content}>
         <h1>
