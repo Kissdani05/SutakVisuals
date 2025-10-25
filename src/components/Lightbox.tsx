@@ -25,7 +25,12 @@ const Lightbox: React.FC = () => {
         {index + 1} / {items.length}
       </div>
 
-      <img className={styles.image} src={item.image} alt={item.title} onClick={(e) => e.stopPropagation()} />
+      <img
+        className={styles.image}
+        src={item.image}
+        alt={`${item.title} – ${item.desc}`}
+        onClick={(e) => e.stopPropagation()}
+      />
 
       <div className={styles.caption}>
         <strong>{item.title}</strong>

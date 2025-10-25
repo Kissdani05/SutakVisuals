@@ -21,7 +21,7 @@ const Hero: React.FC = () => {
       <div className={styles.gridOverlay} />
       <div className={styles.content}>
         <h1>
-          AUTÓZÁS<br />MŰVÉSZETE
+         AZ AUTÓZÁS<br />MŰVÉSZETE
         </h1>
         <p className={styles.subtitle}>Ahol a sebesség művészetté válik</p>
         <div className={styles.ctaGroup}>
@@ -30,6 +30,7 @@ const Hero: React.FC = () => {
         </div>
       </div>
       <div className={styles.scrollIndicator}><span>Görgess</span></div>
+      <div className={styles.fadeBottom} />
     </section>
   );
 };

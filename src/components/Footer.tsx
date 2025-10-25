@@ -19,7 +19,7 @@ const Footer: React.FC = () => {
           </div>
         </div>
         <div className={styles.section}>
-          <h4>szolgáltatások</h4>
+          <h4>Szolgáltatások</h4>
           <div className={styles.links}>
             <a href="#services">Track - Mozgás közben</a>
             <a href="#services">Előre megbeszélt helyek</a>
@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
         <div className={styles.section}>
           <h4>Kövess be!</h4>
           <div className={styles.links}>
-            <a href="https://www.instagram.com/sutakvisuals" target="_blank">Instagram</a>
+            <a href="https://www.instagram.com/sutakvisuals" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
         </div>
       </div>

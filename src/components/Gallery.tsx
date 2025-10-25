@@ -55,7 +55,7 @@ const GalleryGrid: React.FC = () => {
               className={styles.tag}
               href={`https://instagram.com/${(it.tag || "").replace(/^@/, "")}`}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               onClick={(e) => e.stopPropagation()}
             >
               {it.tag}
@@ -75,8 +75,18 @@ const Gallery: React.FC = () => {
           <div className={styles.sectionTag}>Portfólió</div>
           <h2 className={styles.sectionTitle}>Válogatott kollekció</h2>
           <p className={styles.sectionDescription}>
-            Ezek a képek egy jó pár autós talalkozóról lettek válogatva amin megjelentem, mint Media Press. Legfrissebb képeimet az Instagramon láthatod. @sutakvisuals
+            Ezek a képek egy jó pár autós talalkozóról lettek válogatva amin megjelentem, mint Media Press. Legfrissebb képeimet az Instagramon láthatod.
           </p>
+          <div className={styles.instaCta}>
+            <a
+              className={styles.instaButton}
+              href="https://instagram.com/sutakvisuals"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @sutakvisuals
+            </a>
+          </div>
         </div>
         <GalleryGrid />
       </section>
