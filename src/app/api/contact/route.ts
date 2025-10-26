@@ -9,18 +9,61 @@ type Payload = {
   _hp?: string; // honeypot
 };
 
+// Simple in-memory rate limiter (production: use Redis/DB)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
+const MAX_REQUESTS = 3; // max 3 requests per minute per IP
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+    return true;
+  }
+  
+  if (record.count >= MAX_REQUESTS) {
+    return false;
+  }
+  
+  record.count++;
+  return true;
+}
+
 export async function POST(req: Request) {
   try {
-  const data = (await req.json()) as Payload;
-  const { name, email, instagram, subject, message, _hp } = data || {};
+    // Rate limiting
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0] || req.headers.get("x-real-ip") || "unknown";
+    if (!checkRateLimit(ip)) {
+      return new Response(
+        JSON.stringify({ error: "Túl sok kérés. Kérlek próbáld újra később." }),
+        { status: 429 }
+      );
+    }
+
+    const data = (await req.json()) as Payload;
+    const { name, email, instagram, subject, message, _hp } = data || {};
 
     // Simple honeypot
     if (_hp) {
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
     }
 
+    // Enhanced validation
     if (!name || !email || !subject || !message) {
       return new Response(JSON.stringify({ error: "Minden mező kötelező." }), { status: 400 });
+    }
+
+    // Length validation
+    if (name.length > 100 || email.length > 100 || subject.length > 200 || message.length > 2000) {
+      return new Response(JSON.stringify({ error: "Valamelyik mező túl hosszú." }), { status: 400 });
+    }
+
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return new Response(JSON.stringify({ error: "Érvénytelen email formátum." }), { status: 400 });
     }
 
     const SMTP_HOST = process.env.SMTP_HOST;

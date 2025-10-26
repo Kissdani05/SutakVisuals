@@ -26,6 +26,25 @@ const Contact: React.FC = () => {
       const formData = new FormData(form);
       const payload = Object.fromEntries(formData.entries());
 
+      // Client-side validation
+      const name = String(payload.name || "").trim();
+      const email = String(payload.email || "").trim();
+      const subject = String(payload.subject || "").trim();
+      const message = String(payload.message || "").trim();
+
+      if (!name || !email || !subject || !message) {
+        throw new Error("Minden mező kitöltése kötelező.");
+      }
+
+      if (name.length > 100 || email.length > 100 || subject.length > 200 || message.length > 2000) {
+        throw new Error("Valamelyik mező túl hosszú.");
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        throw new Error("Érvénytelen email formátum.");
+      }
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
