@@ -35,7 +35,7 @@ const Services: React.FC = () => {
         <div className={styles.card}>
           <div className={styles.icon}>✨</div>
           <h3>Utómunka</h3>
-          <p>Profeszionális utómunka, képek színezése, Photoshop...Akár személyre is szabva, ha nem tetszik változtatunk!</p>
+          <p>Professzionális utómunka, képek színezése, Photoshop...Akár személyre is szabva, ha nem tetszik változtatunk!</p>
           <a href="#contact" className={styles.link}>Katt, hogy többet megtudj! →</a>
         </div>
       </div>
