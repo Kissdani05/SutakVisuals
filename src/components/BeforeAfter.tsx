@@ -24,7 +24,7 @@ const items: Item[] = [
     after: "/images/beforeafter/barnaafter1.webp",
   },
   {
-    title: "BMW E34 (éjjeli)",
+    title: "BMW E34",
     ig: "zakany_barnabas",
     before: "/images/beforeafter/barnabefore2.webp",
     after: "/images/beforeafter/barnaafter2.webp",
@@ -36,7 +36,7 @@ const items: Item[] = [
     after: "/images/beforeafter/szolloafter1.webp",
   },
   {
-    title: "BMW E36 Touring (detail)",
+    title: "BMW E36 Touring",
     ig: "szollobencee",
     before: "/images/beforeafter/szollobefore2.webp",
     after: "/images/beforeafter/szolloafter2.webp",
@@ -128,10 +128,12 @@ const Comparison: React.FC<{ item: Item }> = ({ item }) => {
 const BeforeAfter: React.FC = () => {
   return (
     <section id="before-after" className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <div className={styles.tag}>Előtte / Utána</div>
-        <h2 className={styles.title}>A profi utómunka eredményei</h2>
-        <p className={styles.subtitle}>Húzd a csúszkát és nézd meg a különbséget!</p>
+      <div className={styles.sectionHeaderWrapper}>
+        <div className={styles.sectionHeader}>
+          <div className={styles.tag}>Előtte / Utána</div>
+          <h2 className={styles.title}>A profi utómunka eredményei</h2>
+          <p className={styles.subtitle}>Húzd a csúszkát és nézd meg a különbséget!</p>
+        </div>
       </div>
       <div className={styles.grid}>
         {items.map((it, i) => (

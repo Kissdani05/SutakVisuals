@@ -1,31 +1,80 @@
-/* Root section */
+@import "../styles/variables.css";
+
+/* Root section – continuous subtle background like hero */
 .section {
-  padding: 8rem 5%;
+  padding: 8rem 5% 6rem;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 0%, #0a1628 0%, #000000 80%);
+}
+
+/* Hero-like accent focused around header area */
+.sectionHeaderWrapper {
+  position: relative;
+  overflow: visible;
+  padding: 0 0 2.5rem;
+  margin: 0 auto 2.5rem;
+  max-width: 1100px;
+}
+
+.sectionHeaderWrapper::before,
+.sectionHeaderWrapper::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  animation: beforeAfterFloat 8s ease-in-out infinite;
+}
+
+.sectionHeaderWrapper::before {
+  width: 500px;
+  height: 500px;
+  background: var(--accent-primary);
+  top: -20%;
+  left: 0;
+}
+
+.sectionHeaderWrapper::after {
+  width: 400px;
+  height: 400px;
+  background: var(--accent-secondary);
+  top: -10%;
+  right: 0;
+  animation-delay: 2s;
+}
+
+@keyframes beforeAfterFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
 }
 .sectionHeader {
   max-width: 900px;
-  margin: 0 auto 3rem;
+  margin: 0 auto;
   text-align: center;
 }
 .tag {
   display: inline-block;
-  color: var(--text-secondary, #9aa0a6);
   font-size: 0.9rem;
-  letter-spacing: 0.08em;
+  color: var(--accent-primary, #0ef1a2);
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px;
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 .title {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 6vw, 5rem);
   font-weight: 900;
   letter-spacing: -0.02em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary, #ffffff);
 }
 .subtitle {
+  font-size: 1.1rem;
   color: var(--text-secondary, #9aa0a6);
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* Grid */
@@ -37,8 +86,8 @@
 }
 
 .item {
-  background: rgba(255,255,255,0.02);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #000000;
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px;
   padding: 2rem;
   transition: border-color .3s ease, transform .3s ease, box-shadow .3s ease;

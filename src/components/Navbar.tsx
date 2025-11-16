@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`} id="navbar">
       <div className={styles.container}>
-        <div className={styles.logo}>SutakVisuals</div>
+        <a href="/" className={styles.logo}>SutakVisuals</a>
         <button
           className={styles.burger}
           aria-label={open ? "Menü bezárása" : "Menü megnyitása"}
