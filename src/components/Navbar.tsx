@@ -59,20 +59,22 @@ const Navbar: React.FC = () => {
           <span/>
         </button>
         <ul className={styles.links}>
-          <li><a href="#home" onClick={(e) => handleNav(e, "#home")}>Kezdőlap</a></li>
-          <li><a href="#gallery" onClick={(e) => handleNav(e, "#gallery")}>Portfólió</a></li>
-          <li><a href="#services" onClick={(e) => handleNav(e, "#services")}>Szolgáltatások</a></li>
-          <li><a href="#contact" onClick={(e) => handleNav(e, "#contact")}>Kontakt</a></li>
-        </ul>
+  <li><a href="/#home">Kezdőlap</a></li>
+  <li><a href="/#gallery">Portfólió</a></li>
+  <li><a href="/#services">Szolgáltatások</a></li>
+  <li><a href="/galeria">Galéria</a></li>
+  <li><a href="/#contact">Kontakt</a></li>
+</ul>
       </div>
       {/* Mobile menu */}
       <div id="mobile-menu" className={`${styles.mobile} ${open ? styles.open : ""}`} ref={menuRef}>
         <ul>
-          <li><a href="#home" onClick={(e) => handleNav(e, "#home")}>Kezdőlap</a></li>
-          <li><a href="#gallery" onClick={(e) => handleNav(e, "#gallery")}>Portfólió</a></li>
-          <li><a href="#services" onClick={(e) => handleNav(e, "#services")}>Szolgáltatások</a></li>
-          <li><a href="#contact" onClick={(e) => handleNav(e, "#contact")}>Kontakt</a></li>
-        </ul>
+  <li><a href="/#home" onClick={() => setOpen(false)}>Kezdőlap</a></li>
+  <li><a href="/#gallery" onClick={() => setOpen(false)}>Portfólió</a></li>
+  <li><a href="/galeria" onClick={() => setOpen(false)}>Galéria</a></li>
+  <li><a href="/#services" onClick={() => setOpen(false)}>Szolgáltatások</a></li>
+  <li><a href="/#contact" onClick={() => setOpen(false)}>Kontakt</a></li>
+</ul>
       </div>
     </nav>
   );
