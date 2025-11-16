@@ -14,7 +14,8 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "SutakVisuals",
-          url: (process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu"),
+          url: process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu",
+          logo: (process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu") + "/images/onedaye30.webp",
           sameAs: ["https://www.instagram.com/sutakvisuals"],
         })}
       </Script>
@@ -23,7 +24,7 @@ export default function Home() {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "SutakVisuals",
-          url: (process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu"),
+          url: process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu",
           potentialAction: {
             "@type": "SearchAction",
             target: (process.env.NEXT_PUBLIC_SITE_URL || "https://sutakvisuals.hu") + "/?q={search_term_string}",
